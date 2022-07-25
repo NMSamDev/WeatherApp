@@ -18,6 +18,7 @@
         android:textStyle="bold"
         android:layout_margin="4dp"
         android:textAlignment="center"
+        android:elevation="20dp"
         />
 
     <TextView
@@ -30,6 +31,7 @@
         android:textSize="32sp"
         tools:text="US"
         android:textAlignment="center"
+        android:elevation="20dp"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -44,6 +46,5 @@
         tools:listitem="@layout/weather_list_item"
 
         android:background="@android:color/holo_blue_light"
-        android:elevation="20dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
