@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/nav_starting_page"
+        android:name="com.example.carlosmendez_weatherapp.view.StartingPageFragment"
+        >
+        <action
+            android:id="@+id/action_starting_page_to_weather_list"
+            app:destination="@id/nav_weather_list"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_weather_list"
+        android:name="com.example.carlosmendez_weatherapp.view.WeatherListFragment"
+        >
+        <action
+            android:id="@+id/action_weather_list_to_weather_details"
+            app:destination="@id/nav_weather_details"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_weather_details"
+        android:name="com.example.carlosmendez_weatherapp.view.WeatherDetailsFragment"
+        >
+
+    </fragment>
+
+</navigation>

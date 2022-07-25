@@ -1,6 +1,12 @@
 package com.example.carlosmendez_weatherapp.di
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import com.example.carlosmendez_weatherapp.api.WeatherRepositoryImpl
 import com.example.carlosmendez_weatherapp.api.WeatherService
+import com.example.carlosmendez_weatherapp.viewmodel.WeatherViewModel
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,4 +31,17 @@ object DI {
             .readTimeout(20,TimeUnit.SECONDS)
             .build()
     }
+
+    private fun provideRepository() = WeatherRepositoryImpl(service)
+
+    private fun provideDispatcher() = Dispatchers.IO
+
+    fun provideViewModel(storeOwner: ViewModelStoreOwner): WeatherViewModel{
+        return ViewModelProvider(storeOwner, object: ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return WeatherViewModel(provideRepository(), provideDispatcher()) as T
+            }
+        })[WeatherViewModel::class.java]
+    }
+
 }
