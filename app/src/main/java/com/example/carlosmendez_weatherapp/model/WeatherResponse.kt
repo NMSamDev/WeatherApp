@@ -16,7 +16,7 @@ data class WeatherListItem(
 )
 
 data class MainW(
-    val temp: Float,
+    val temp: Float, // It's in Kelvin
     val feels_like: Float,
     val temp_min: Float,
     val temp_max: Float,
