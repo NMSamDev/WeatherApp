@@ -1,4 +1,4 @@
 package com.example.carlosmendez_weatherapp.view
 
-class WeatherDetailsFragment {
+class WeatherDetailsFragment: ViewModelFragment() {
 }

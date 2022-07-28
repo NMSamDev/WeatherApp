@@ -17,23 +17,22 @@ object DI {
     private val service = Retrofit.Builder()
         .baseUrl("https://api.openweathermap.org/")
         .addConverterFactory(GsonConverterFactory.create())
-        .client(provideHtttpClient())
+        .client(provideHttpClient())
         .build()
         .create(WeatherService::class.java)
 
-    private fun provideHtttpClient(): OkHttpClient {
+    private fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
-            .writeTimeout(20,TimeUnit.SECONDS)
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(20,TimeUnit.SECONDS)
+            .writeTimeout(10,TimeUnit.SECONDS)
+            .readTimeout(10,TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             .build()
     }
 
     private fun provideRepository() = WeatherRepositoryImpl(service)
-
     private fun provideDispatcher() = Dispatchers.IO
 
     fun provideViewModel(storeOwner: ViewModelStoreOwner): WeatherViewModel{
