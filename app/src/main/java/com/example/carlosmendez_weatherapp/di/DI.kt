@@ -21,6 +21,7 @@ object DI {
         .build()
         .create(WeatherService::class.java)
 
+
     private fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {

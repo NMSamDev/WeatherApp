@@ -34,6 +34,9 @@ class WeatherViewModel(
         viewModelScope + coroutineExceptionHandler
     }
 
+    fun setLoading() {
+        _weatherListData.postValue(UIState.Loading)
+    }
     fun getWeather(city: String) {
         viewModelSafeScope.launch(dispatcher) {
             repository.getWeatherByCity(city).collect{
