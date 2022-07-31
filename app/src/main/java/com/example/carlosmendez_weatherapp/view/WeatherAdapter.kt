@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.carlosmendez_weatherapp.databinding.WeatherListItemBinding
 import com.example.carlosmendez_weatherapp.model.WeatherListItem
-import com.squareup.picasso.Picasso
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 private const val TAG = "Adapter"
 
@@ -15,22 +16,16 @@ class WeatherAdapter(
     private val list: MutableList<WeatherListItem> = mutableListOf()
 ): RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
-    var city: String = ""
-    var country: String = ""
-
     inner class WeatherViewHolder(private val binding: WeatherListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun onBind(item: WeatherListItem) {
                 binding.apply {
                     Log.d(TAG, "onBind:${item.dt_txt}")
-                    tvDate.text = item.dt_txt
+                    tvDate.text = formatDate(item.dt_txt)
                     tvMeasure.text = tempMeasure
                     tvTemperature.text = (item.main.temp.toInt()).toString()
                     tvWeatherDesc.text = item.weather.first().description
-                    //city = item.city.name
-//                    country = item.city.country
-//
-                    val iconUrl = "http://openweathermap.org/img/wn/${item.weather.first().icon}.png"
+                    val iconUrl = "https://openweathermap.org/img/wn/${item.weather.first().icon}@4x.png"
                     Log.d(TAG, "onBind:$iconUrl")
 
                     Glide.with(ivWeatherIcon)
@@ -59,9 +54,12 @@ class WeatherAdapter(
         notifyDataSetChanged()
     }
 
-//    private fun formatDate(date: String): String {
-//        return date + " date"
-//    }
+    private fun formatDate(dateOld: String): String {
+        val dateNew = LocalDateTime.parse(dateOld.replace(" ", "T"))
+//        Log.d(TAG, "formatDate: $dateNew")
+
+        return dateNew.hour.toString()+":00 "+ dateNew.month.toString() + " " + dateNew.dayOfMonth.toString() + " "+dateNew.dayOfWeek.toString()
+    }
 
     fun changeMeasure(selected: Measure) {
         tempMeasure = when(selected) {
